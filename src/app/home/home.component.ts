@@ -11,36 +11,66 @@ import { MatList } from '@angular/material';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   animations: [
-    trigger('categoryTrigger', [
-      state('active', style({transform: 'scale(2)'})),
-      transition('inactive => active', [
-        animate(200)
+    trigger('scrollTrigger', [
+      state('up', style({transform: 'translateY(-5px)'})),
+      transition('down => up', [
+        animate('700ms')
       ]),
-      transition('active => inactive', [
-        animate(0)
+      transition('up => down', [
+        animate('700ms')
       ]),
-      state('inactive', style({transform: 'scale(1)'}))
+      state('down', style({transform: 'translateY(5px)'}))
     ])
   ]
 })
 export class HomeComponent implements OnInit {
 
-  state = 'inactive';
-  positionY = 100;
+  state = 'down';
+  positionY = 0;
+  topY = 100;
   deltaY = 0;
+  isScrolling = false;
 
   constructor(private scrollDispather: ScrollDispatcher) { }
 
+  @HostListener('window:resize', ['$event'])
+    onResize($event) {
+      this.positionY = (0 - document.getElementById('menuList').offsetHeight / window.innerHeight * 100);
+      this.topY = 100;
+      console.log(this.positionY);
+      console.log(screen.height);
+      this.isScrolling = false;
+    }
+
   ngOnInit() {
+    console.log(screen.height + 'menu height' + document.getElementById('menuList').offsetHeight);
+    this.positionY = (0 - document.getElementById('menuList').offsetHeight / window.innerHeight * 100);
+    console.log(this.positionY);
   }
 
   scrollHandler($event) {
-    console.log($event);
-    if($event.deltaY < 1 && this.positionY <= 100) {
+    //console.log(this.positionY + 'and the screen' + screen.height / 100);
+    if($event.deltaY > 1 && this.positionY < 0) {
+      console.log(this.positionY);
       this.positionY++;
+      this.topY--;
+      if(this.topY <= 100) {
+        this.isScrolling = true;
+      }
+      else {
+        this.isScrolling = false;
+      }
     }
-    else if($event.deltaY > 1 && this.positionY >= 10) {
+    else if($event.deltaY < 1 && this.topY <= 100) {
+      console.log(this.positionY);
       this.positionY--;
+      this.topY++;
+      if(this.topY <= 100) {
+        this.isScrolling = true;
+      }
+      else {
+        this.isScrolling = false;
+      }
     }
   }
 
@@ -63,6 +93,17 @@ export class HomeComponent implements OnInit {
 
   setInactive() {
     this.state = 'inactive';
+  }
+
+  toggleScroll() {
+    switch(this.state) {
+      case 'up':
+        this.state = 'down';
+        break;
+      case 'down':
+        this.state = 'up';
+        break;
+    }
   }
 
   reroute() {

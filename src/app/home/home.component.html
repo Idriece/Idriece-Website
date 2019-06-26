@@ -6,5 +6,9 @@
         </div>
         <img mat-card-image class="home-image" src="assets/img/Idriece.jpg">
     </div>
-    <app-menu-list id="menuList" #menuList class="menu-list" [ngStyle]="{'top.vh': positionY}"></app-menu-list>
+    <div [@scrollTrigger]="state" (@scrollTrigger.done)="toggleScroll()" class="scroll-down-div" *ngIf="!isScrolling">
+        <p class="padding-0 margin-0"></p>scroll down
+        <i class="material-icons">arrow_downward</i>
+    </div>
+    <app-menu-list id="menuList" #menuList class="menu-list" [ngStyle]="{'top.vh': topY, 'bottom.vh': positionY}"></app-menu-list>
 </div>

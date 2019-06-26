@@ -179,7 +179,7 @@ mat-toolbar-row {
 .toolbar {
     position: absolute;
     top: 0;
-    z-index: 8;
+    z-index: 10 !important;
     padding-left: 0;
     padding-right: 0;
 }
@@ -207,6 +207,10 @@ mat-toolbar-row {
     padding-right: 0 !important;
 }
 
+.margin-0 {
+    margin: 0 !important;
+}
+
 .menu-icon {
     width: 100%;
     position: absolute;
@@ -227,7 +231,16 @@ mat-toolbar-row {
 
 .menu-list {
     position: fixed;
-    z-index: 6;
+    z-index: 6 !important;
+    height: 300px;
+}
+
+.menu-list-item:hover {
+    color: mat-color(map-get($idriece-app-theme, accent));
+}
+
+.padding-0 {
+    padding: 0 !important;
 }
 
 .padding-left-20 {
@@ -250,4 +263,15 @@ mat-toolbar-row {
 
 .width-50 {
     width: 50vw;
+}
+
+.scroll-down-div {
+    position: absolute;
+    bottom: 0;
+    left: 48px;
+    display: inline-flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 8 !important;
 }
