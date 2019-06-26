@@ -76,14 +76,28 @@ export class HomeComponent implements OnInit {
 
   panup($event) {
     console.log($event);
-    if(this.positionY >= 10) {
-      this.positionY -= 0.2;
+    if(this.positionY < 0) {
+      this.positionY += 0.5;
+      this.topY -= 0.5;
+      if(this.topY <= 100) {
+        this.isScrolling = true;
+      }
+      else {
+        this.isScrolling = false;
+      }
     }
   }
 
   pandown($event) {
     if(this.positionY <= 100) {
-      this.positionY += 0.2;
+      this.positionY -= 0.5;
+      this.topY += 0.5;
+      if(this.topY <= 100) {
+        this.isScrolling = true;
+      }
+      else {
+        this.isScrolling = false;
+      }
     }
   }
 
