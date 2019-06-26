@@ -1,0 +1,13 @@
+<mat-toolbar color="primary" class="toolbar">
+  <mat-toolbar-row class="padding-left-0 padding-right-0">
+    <button mat-button class="menu-button" (click)="toggleSidenav()">
+      <div class="menu-button" [ngSwitch]="sideNavService.opened">
+        <i *ngSwitchCase="true" class="material-icons menu-icon" [@menuTrigger]="closeState">close</i>
+        <i *ngSwitchDefault class="material-icons menu-icon" [@menuTrigger]="menuState">menu</i>
+      </div>
+    </button>
+    <span class="toolbar-button">
+      <i class="material-icons menu-button">home</i>
+    </span>
+  </mat-toolbar-row>
+</mat-toolbar>
